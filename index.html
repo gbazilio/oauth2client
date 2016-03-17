@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Android OAuth2 Client by gbazilio</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Android OAuth2 Client</h1>
+        <p>Android OAuth2 Client with embedded WebView for authorization url.</p>
+
+        <p class="view"><a href="https://github.com/gbazilio/oauth2client">View the Project on GitHub <small>gbazilio/oauth2client</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/gbazilio/oauth2client/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/gbazilio/oauth2client/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/gbazilio/oauth2client">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="custom-oauth2-android-client" class="anchor" href="#custom-oauth2-android-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom OAuth2 Android Client</h1>
+
+<p>The library was developed to fit specific needs of a client, which is to complete the OAuth Authorization Code Flow using Github as the OAuth2 Provider.</p>
+
+<h1>
+<a id="using-the-library" class="anchor" href="#using-the-library" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using the library</h1>
+
+<p>Get an instance of a provider's client:</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">OAuth2Client</span> oauthClient <span class="pl-k">=</span> <span class="pl-smi">OAuth2ClientFactory</span><span class="pl-k">.</span>newInstance(<span class="pl-smi">OAuth2ClientFactory</span><span class="pl-k">.</span><span class="pl-smi">Provider</span><span class="pl-c1"><span class="pl-k">.</span>ENVATO</span>);</pre></div>
+
+<p>Build the dialog fragment to show the login/authorization screen:</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">OAuth2LoginFragment</span> oAuth2LoginFragment <span class="pl-k">=</span> <span class="pl-smi">OAuth2LoginFragment</span><span class="pl-k">.</span>newInstance(oauthClient);</pre></div>
+
+<p>Set a listener responsible for intercepting the access token when appropriate:</p>
+
+<div class="highlight highlight-source-java"><pre>oAuth2LoginFragment<span class="pl-k">.</span>setOnAccessTokenRequestedListener(<span class="pl-k">new</span> <span class="pl-smi">AccessTokenRequested</span>() {
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onAccessTokenRequested</span>(<span class="pl-smi">Token</span> <span class="pl-v">token</span>) {
+        <span class="pl-smi">Log</span><span class="pl-k">.</span>v(<span class="pl-s"><span class="pl-pds">"</span>Provider<span class="pl-pds">"</span></span>, token<span class="pl-k">.</span>getProvider());
+        <span class="pl-smi">Log</span><span class="pl-k">.</span>v(<span class="pl-s"><span class="pl-pds">"</span>AccessToken<span class="pl-pds">"</span></span>, token<span class="pl-k">.</span>getAccessToken());        
+    }
+});</pre></div>
+
+<p>Be sure to make the fragment visible whenever you want (e.g. on clicking a button):</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">FragmentTransaction</span> fragmentTransaction <span class="pl-k">=</span> getSupportFragmentManager()<span class="pl-k">.</span>beginTransaction();
+fragmentTransaction<span class="pl-k">.</span>addToBackStack(<span class="pl-c1">null</span>);
+
+oAuth2LoginFragment<span class="pl-k">.</span>show(fragmentTransaction, <span class="pl-s"><span class="pl-pds">"</span>oauth2_dialog<span class="pl-pds">"</span></span>);</pre></div>
+
+<h1>
+<a id="oauth2-clients" class="anchor" href="#oauth2-clients" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>OAuth2 Clients</h1>
+
+<p>Implement the base class <code>com.gbazilio.oauth2client.oauth2.clients.interfaces.OAuth2Client</code> if more clients are needed.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/gbazilio">gbazilio</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
